@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 // import Select from 'react-select';
 import { View, Image, Text, TouchableOpacity, TextInput, StyleSheet, Dimensions } from 'react-native'
 // import { Image } from 'react-native'
-import PhoneInput from 'react-native-phone-input'
+// import PhoneInput from 'react-native-phone-input'
 import { Rating, AirbnbRating } from 'react-native-ratings'
-
 import { SliderBox } from 'react-native-image-slider-box';
-import { FastImage } from 'react-native-fast-image';
 
 class Inputs extends Component {
    state = {
@@ -79,11 +77,12 @@ class Inputs extends Component {
      // console.log("Rating is: " + rating)
      handleReview: rating
    }
-  
-    componentDidMount() {
+    
+    componentWillMount() {
       fetch('http://review.nahlapure.in/api/getslider')
       .then(response => response.json()) // If it's a JSON response, you have to parse it firstly
       .then(responseJson => this.setState({ slider:responseJson.data })) // #2. After that you have to keep the images in the component's state.
+      console.disableYellowBox = true;
     }
 
    render() {    
@@ -94,7 +93,7 @@ class Inputs extends Component {
                style = {{ width: 100, height: 50, margin: 10 }}
             />
             </View>
-            <SliderBox images={this.state.slider} autoPlay autoplayTimeout={2} infiniteLoop='true' ImageComponent={FastImage} sliderBoxHeight={200} circleLoop paginationBoxVerticalPadding={2} />
+            <SliderBox images={this.state.slider} autoPlay autoplayTimeout={2} infiniteLoop='true' sliderBoxHeight={200} circleLoop paginationBoxVerticalPadding={2} />
 
             <TextInput style = {styles.input}
                ref="name"
